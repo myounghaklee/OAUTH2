@@ -8,7 +8,9 @@ public class CustomSecurityConfigurer extends AbstractHttpConfigurer<CustomSecur
 
     @Override
     public void init(HttpSecurity builder) throws  Exception{
+        System.out.println("init test");
         super.init(builder);
+        System.out.println("init test");
     }
 
     @Override
