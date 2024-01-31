@@ -62,3 +62,44 @@ start : keycloack directory하위의 bin 이동후 ```./kc.sh start-dev```
 ### Authorization Code
 - 권한부여 코드 흐름에서 사용되고  클라이언트가 액세스 토큰과 교환할 임시 코드
 - 사용자가 클라리언트가 요청하는 정보를 확ㅇ니하고 인가 서버로부터 리다이렉트되어 받아온다.
+
+
+## Grant Type
+- 권한 부여란 클라이언트가 사용자를 대신해서 사용자의 승인하에 인가서버로 부터 권한을 부여받는것.
+- Authorization code grant type : 권한코드 부여 타입, 서버 사이드 앱, 보안에 가장 안전한 유형
+- client credentials grant type : 클라이언트 자격증명 권한 부여 타입, Ui or 화면이 없는 서버 어플리케이션
+- refresh token grant type : 새로고침 토큰 부여타입, authorization code, resource ownder password type 에서 지원 
+- PKCE-enhanced authorization code grant type : PKCE 권한 코드 부여타입, 서버사이드 어플리케이션, 공개 클라이언트 어플리케이션
+
+## ID Token
+- 사용자가 인증되었음을 증명하며 OIDC 요청시 access token과 함꼐 클라이언트에게 전달되는 토큰
+- jwt로 표현되며 헤더, 페이로드, 서명으로 구성된다.
+- 개인키로 발급자가 서명하는 것으로서 토큰의 출처를 보장하고 변조되지 않았음을 보장한다.ㅣ
+- 어플리케이션은 공개키로 id토큰을 검증 및 유혀성을 검사하고 만료여부등 토큰의 클레임을 확인한다.
+- 클라이언트는 클레임 정보에 포함되어 있는 사용자명, 이메일을 활용하여 인증관리 할 수 있따.
+
+### ID Token vs Access Token
+- ID Token은 API 요청에 사용해서는 안되며 사용자의 신원확인을 위해 사용되어져야 함
+- Access Token은 인증을 위해 사용해서는 안되며 리소스에 접근하기 위해 사용되어져야 한다.
+
+### OIDC 로그인 요청
+OIDC 상호작용 행위자
+- openid provider :  openid제공자로서 최종 사용자 인증하고 인증결과와 사용자에 대한 정보를 신뢰 당사자에게 제공할 수 있는 oauth서버를 의미
+- relying party : 신뢰 당사자로서 인증 요청을 처리하기 위해 op에 의존하는 oauth 애플리케이션으 ㄹ의미
+
+### 흐름
+- op에 권한부여 요청을 보낸다.
+- op는 최종 사용자를 인증하고 권한을 얻는다.
+- op는 id 토큰과 액세스 토큰으로 응답한다.
+- rp는 access token을 사용하여 userinfo 엔드포인트에 요청보낼 수 있다.
+- userInfo 엔드포인트 최종 사용자에 대한 클레임을 반환한다.
+
+### OIDC 로그인 요청
+매개변수 요청 및 응답
+- 요청시 openid범위를 scope 매개변수에 포함해야한다.
+- response_type 매개변수는 id_token을 포함해야한다. (response_type이 해당 토큰을 지원해야 한다.)
+- 요청은 nonce 매개변수를 포함해야한다. (Implicit flow인 경우 필수)
+- 요청은 포함되는 값으로서 결과 id_token 값에 클레임으로 포함되며 이것은 토큰의 재생공격을 방지하고 요쳐으이 출처를 식별하는데 사용할 수 있는 임의의 고유 문자열이다.
+- 해당 nonce 클레임에는 요청에서 전송된 것과 정확히 동일한 값이 포함되어야 합니ㅏㄷ. 그렇지 않은경우 애플리케이션에서 인증을 거부해야 한다.
+ 
+ 

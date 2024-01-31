@@ -11,7 +11,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    SecurityFilterChain securityFilterChain1(HttpSecurity http) throws Exception{
 
         //Deprecated Method
 //        http.authorizeRequests().anyRequest().authenticated();
@@ -26,8 +26,24 @@ public class SecurityConfig {
                 )
                 .formLogin(withDefaults())
                 .apply(new CustomSecurityConfigurer());
+        return http.build();
 
+    }
 
+    @Bean
+    SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception{
+
+        //Deprecated Method
+//        http.authorizeRequests().anyRequest().authenticated();
+//        http.formLogin();
+//        http.apply(new CustomSecurityConfigurer());
+//        return http.build();
+
+        //Changed Method
+        http
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests.anyRequest().authenticated()
+                ).httpBasic();
         return http.build();
 
     }
