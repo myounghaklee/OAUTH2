@@ -108,3 +108,16 @@ OIDC 상호작용 행위자
 3. 초기화가 진행되면 application.yml에 있는 클라이언트 및 엔드포인트 정보가 OAuth2ClientProperties 의 각 속성에 바인딩 된다. 
 4. OAuth2ClientProperties에 바인딩 되어 있는 속성의 값은 인가서버로 권한부여 요청을 하기 위한 ClienteRegistration 클래스의 필드에 저장된다.
 5. OAuth2Client는 ClientRegistration를 참조해서 권한부여 요청을 위한 매개변수를 구성하고 인가서버와 통신한다.
+
+
+## OAuth2LoginConfigurer 초기화 및 설정 
+init 호출시 아래의 순서로 호출된다.
+- OAuth2LoginAuthenticationFilter : access 토큰 교환 및 사용자 정보 엔드포인트 요청 필터
+- OAuth2LoginAuthenticationProvider
+- OidcAuthorizationCodeAuthenticationProvider 
+- DefautlLoginPateGeneratingFilter
+
+configure 호출시 
+- OAuth2AuthorizationRequestRedirectFilter : 임시코드 발급 엔드 포인트 요청 필터
+
+
