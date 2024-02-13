@@ -1,0 +1,13 @@
+#spring:
+#    datasource:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: localhost:8080
+#        username: root
+#        password: root
+
+
+spring:
+  security:
+    user:
+      name: user
+      password: user
