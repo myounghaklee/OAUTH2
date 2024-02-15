@@ -19,3 +19,13 @@ public class SecurityConfig {
 }
 
 ``` 
+## LoginForm 인증
+```
+UsernamePasswordAuthenticationFilter
+ㄴ AntPathRequestMatcher(/login) -> 실패시 chain.doFilter
+ㄴ Authentication
+ㄴ AuthenticationManager
+ㄴ AuthenticationProvider(인증성공)
+ㄴ Authentication
+ㄴ SecurityContext 저장
+```

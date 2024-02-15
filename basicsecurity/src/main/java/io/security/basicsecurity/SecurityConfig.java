@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .httpBasic(withDefaults());
         http
                 .formLogin()
-                .loginPage("/loginPage")
+                //.loginPage("/loginPage")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .usernameParameter("username")
