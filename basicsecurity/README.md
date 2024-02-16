@@ -29,3 +29,12 @@ UsernamePasswordAuthenticationFilter
 ㄴ Authentication
 ㄴ SecurityContext 저장
 ```
+request /logout 시 server는 세션 무효화, 인증토큰 삭제, 쿠키정보삭제, 로그인페이지 리다이렉트 시키는것을 default로 한다.
+
+### Remember-me
+- 세션이 만려되고 웹 브라우저가 종료된 후에도 어플리케이션이 사용자를 기어갛느 ㄴ기능
+- Remember-me 쿠키에 대한 http 요청을 확인한 후 토큰 기반 인증을 사용해 유효성을 검사하고 토큰이 검증되면 사용자는 로그인된다. 
+- 사용자 life-cycle
+  - 인증 성공 (Remember-Me 쿠키 설정)
+  - 인증 실패 (쿠키가 존재하면 쿠키 무효화)
+  - 로그아웃(쿠키가 존재하면 쿠키 무효화)
