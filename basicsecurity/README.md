@@ -38,3 +38,34 @@ request /logout 시 server는 세션 무효화, 인증토큰 삭제, 쿠키정�
   - 인증 성공 (Remember-Me 쿠키 설정)
   - 인증 실패 (쿠키가 존재하면 쿠키 무효화)
   - 로그아웃(쿠키가 존재하면 쿠키 무효화)
+
+
+## 인증 API
+### AnonymousAuthenticationFilter
+- 익명사용자 인증처리필터
+- 익명사용자와 인증 사용자를 구분해서 처리하기 위한 용도
+- isAnonymous(), isAuthenticated()로 구분해서 사용
+- 인증객체를 세션에 저장하지 않음
+
+
+### 동시 세션 제어
+sessionManagement() : 세션 관리 기능
+```java
+protected void configure(HttpSecurity http) throws Exception{
+    http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.If_Required)
+        }
+```
+
+- SessionCreationPolicy.Always : 스프링 시큐리티가 항상 세션 생성
+- SessionCreationPolicy.If_Required : 스프링 시큐리티가 필요시 생성(기본값)
+- SessionCreationPolicy.Never : 스프링 시큐리티가 생성하지 않지만 이미 존재하면 사용
+- SessionCreationPolicy.Stateless : 스프링시큐리티가 생성하지 않고 존재해도 사용하지 않음
+
+
+### ConcurrentSessionFilter
+- 매 요청마다 현재 사용자의 세션 만료 여부 체크 
+- 세션이 만료되었을 경우 즉시 만료처리 
+- session.isExpired() == true : 로그아웃처리, 즉시 오류페이지 응답
+- ![img.png](img.png)
+

@@ -78,6 +78,10 @@ public class SecurityConfig {
                 .rememberMe()
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3600);
+
+        http
+                .sessionManagement()
+                .sessionFixation().changeSessionId();
         return http.build();
     }
 }
