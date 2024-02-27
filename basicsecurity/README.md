@@ -69,3 +69,47 @@ protected void configure(HttpSecurity http) throws Exception{
 - session.isExpired() == true : 로그아웃처리, 즉시 오류페이지 응답
 - ![img.png](img.png)
 
+-----
+## 인가 API
+### 권한 설정
+- 선언적 방식
+  - URL : http.antMatchers("/users/**").hasRole("USER")
+  - Method : @PreAuthorize("hasRole(ÙSER`)")
+- 동적 방식
+  - URL
+  - Method
+
+### 표현식
+- autheticated() : 인증된 사용자의 접근을 허용
+- fullyAuthenticated() 인증된 사용자의 접근을 허용(rememberMe 인증 제외)
+- permitAll() : 무조건 접근 허용
+- denyAll() : 무조건 접근을 허용하지 않음
+- anonymous() : 익명사용자의 접근을 허용
+- rememberMe() : 기억하기를 통해 인증된 사용자의 접근을 허용
+- aceess(String) : 주어진 SpEL포현식의 평가 결과가 true면 접근 하용
+- hasRole(String) : 사용자가 주어진 역할이 있다면 접근허용
+- hasAuthority(String) : 사용자가 주어진 권한이 있다면
+- hasAnyRole(String...) : 주어진 권한이 있다면 접근 허용
+- hansAnyAuthority(String...) : 주어진 권한중 어떤것이라도 있따면 접근 한용
+- hasLpAddress(String) : 주어진 ip로부터 요칭이 왔다면 접근 허용
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
