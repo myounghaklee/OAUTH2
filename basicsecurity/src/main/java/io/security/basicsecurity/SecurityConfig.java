@@ -28,7 +28,7 @@ public class SecurityConfig {
 
     @Bean
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        
+
     }
 
 
