@@ -27,7 +27,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .formLogin(form -> form.loginPage("/loginPage")
+                .formLogin(form ->
+                        form.loginPage("/loginPage")
                         .loginProcessingUrl("/loginProc")
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/failed")
@@ -57,7 +58,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(){
         UserDetails user = User.withUsername("user1")
                 .password("{noop}1111")
-                .roles("ROLE_USER")
+                .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
