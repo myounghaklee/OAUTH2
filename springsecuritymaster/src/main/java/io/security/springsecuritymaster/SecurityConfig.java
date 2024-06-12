@@ -27,30 +27,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .formLogin(form ->
-                        form.loginPage("/loginPage")
-                        .loginProcessingUrl("/loginProc")
-                        .defaultSuccessUrl("/", true)
-                        .failureUrl("/failed")
-                        .usernameParameter("userId")
-                        .passwordParameter("passwd")
-                        .successHandler(new AuthenticationSuccessHandler() {
-                            @Override
-                            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                System.out.println("authentication : " + authentication);
-                                response.sendRedirect("/home");
-                            }
-                        })
-                        .failureHandler(new AuthenticationFailureHandler() {
-                            @Override
-                            public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-                                System.out.println("exception : " + exception.getMessage());
-                                response.sendRedirect("/loginPage");
-                            }
-                        })
-                        .permitAll()
-
-                );
+                .formLogin(Customizer.withDefaults())
+                .rememberMe(rememberMe -> rememberMe
+                        .alwaysRemember(true) // 매개변수 설정되지 않았을때도 쿠키가 항상 생성되어야 하는지에 대한 여부를 나타냄
+                        .tokenValiditySeconds(3600) //토큰이 유효한 시간(초단위)을 지정
+                        .userDetailsService(userDetailsService()) //userDetails를 조회하기 위해 사용되는 UserDetailservice를 지정
+                        .rememberMeParameter("remember")// 로그인시 사용자를 기억하기위해 사용되는 HTTP매개변수, 기본값은 'remember-me'
+                        .rememberMeCookieName("remember")//기억하기(remember-me) 인증을 위한 토큰을 저장하는 쿠키이름이며 기본값은 'remember-me'
+                        .key("security"));//기억하기(remember-me)인증을 위해 생성된 토큰을 식별하는 키 설정
         return http.build();
     }
 
